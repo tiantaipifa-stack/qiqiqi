@@ -12,9 +12,9 @@ import type {
 import { LinkPreset } from "./types/config";
 
 export const siteConfig: SiteConfig = {
-	title: " SkonJIYHD's Blog",
+	title: " 夜致星月的Blog",
 	subtitle: "一个普通的博客",
-	description: "SkonJIYHD's Blog",
+	description: "夜致星月的博客",
 
 	keywords: [],
 	lang: "zh_CN", // 'en', 'zh_CN', 'zh_TW', 'ja', 'ko', 'es', 'th'
@@ -70,12 +70,12 @@ export const navBarConfig: NavBarConfig = {
 		},
 		{
 			name: "统计",
-			url: "https://cloud.umami.is/share/bQ5DAx3NBElpT3mW", // Internal links should not include the base path, as it is automatically added
+			url: " ", // Internal links should not include the base path, as it is automatically added
 			external: true, // Show an external link icon and will open in a new tab
 		},
 		{
 			name: "监控",
-			url: "https://uptime.sikon.top", // Internal links should not include the base path, as it is automatically added
+			url: " ", // Internal links should not include the base path, as it is automatically added
 			external: true, // Show an external link icon and will open in a new tab
 		},
 	],
@@ -84,7 +84,7 @@ export const navBarConfig: NavBarConfig = {
 export const profileConfig: ProfileConfig = {
 	avatar: "/images/avatar.png",
 	name: "夜致星月",
-	bio: "夜致星月是小猫娘",
+	bio: "夜致星月",
 	links: [],
 };
 
