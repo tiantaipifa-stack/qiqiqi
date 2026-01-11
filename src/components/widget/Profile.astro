@@ -35,14 +35,14 @@ const config = profileConfig;
                     <Icon name="material-symbols:visibility-outline" class="text-base"></Icon>
                     <span class="text-xs">访问量</span>
                 </div>
-                <div id="site-views" class="font-bold text-lg text-neutral-700 dark:text-neutral-300">0</div>
+                <div id="site-views" class="font-bold text-lg text-neutral-700 dark:text-neutral-300">-</div>
             </div>
             <div class="text-center border-l border-neutral-300 dark:border-neutral-700">
                 <div class="text-xs text-neutral-500 mb-1 flex items-center justify-center gap-1">
                     <Icon name="material-symbols:person" class="text-base"></Icon>
                     <span class="text-xs">访客数</span>
                 </div>
-                <div id="site-visitors" class="font-bold text-lg text-neutral-700 dark:text-neutral-300">0</div>
+                <div id="site-visitors" class="font-bold text-lg text-neutral-700 dark:text-neutral-300">-</div>
             </div>
         </div>
     </div>
@@ -87,6 +87,7 @@ const config = profileConfig;
     // 获取全站访问量统计
     async function loadSiteStats() {
         if (!umamiConfig.enable) return;
+
         try {
             const statsData = await fetchUmamiStats(umamiConfig.baseUrl, umamiConfig.shareId, {
                 timezone: umamiConfig.timezone
@@ -97,6 +98,14 @@ const config = profileConfig;
             
             const viewsElement = document.getElementById('site-views');
             const visitorsElement = document.getElementById('site-visitors');
+            
+            // 如果元素显示的是占位符 "-"，先设置为 0 以便动画
+            if (viewsElement && viewsElement.textContent === '-') {
+                viewsElement.textContent = '0';
+            }
+            if (visitorsElement && visitorsElement.textContent === '-') {
+                visitorsElement.textContent = '0';
+            }
             
             if (viewsElement) {
                 const startVal = parseInt(viewsElement.textContent) || 0;
@@ -113,6 +122,10 @@ const config = profileConfig;
                     animateValue(visitorsElement, startVal, visitors, 1000);
                 }
             }
+        } catch (error) {
+            console.error('获取全站统计失败:', error);
+        }
+    }
         } catch (error) {
             console.error('获取全站统计失败:', error);
         }

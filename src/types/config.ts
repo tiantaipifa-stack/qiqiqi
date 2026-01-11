@@ -39,7 +39,10 @@ export type SiteConfig = {
 	};
 
 	favicon: Favicon[];
-	officialSites?: (string | { url: string; alias: string })[];
+	domainWarning?: {
+		enable: boolean;
+		officialSites: string[];
+	};
 };
 
 export type Favicon = {
@@ -60,7 +63,7 @@ export type NavBarLink = {
 };
 
 export type NavBarConfig = {
-	links: (NavBarLink | LinkPreset)[];
+	links?: (NavBarLink | LinkPreset)[];
 };
 
 export type ProfileConfig = {
@@ -131,4 +134,29 @@ export type Friend = {
 export type FriendsConfig = {
 	enable: boolean;
 	friends: Friend[];
+};
+
+export type AnalyticsConfig = {
+	enable: boolean;
+	umami?: {
+		scriptUrl: string;
+		websiteId: string;
+		shareUrl?: string;
+	};
+	baidu?: {
+		hmJsUrl: string;
+		hmKey: string;
+	};
+	clarity?: {
+			scriptUrl: string;
+			projectId: string;
+	};
+	google?: {
+			scriptUrl: string;
+			measurementId: string;
+	};
+	cloudflare?: {
+			beaconUrl: string;
+			token: string;
+	};
 };

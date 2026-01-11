@@ -10,7 +10,13 @@ import DisplaySettings from "./widget/DisplaySettings.svelte";
 import NavMenuPanel from "./widget/NavMenuPanel.astro";
 const className = Astro.props.class;
 
-let links: NavBarLink[] = navBarConfig.links.map(
+// 默认链接：Home 和 Archive
+const defaultLinks: (NavBarLink | LinkPreset)[] = [LinkPreset.Home, LinkPreset.Archive];
+
+// 如果未配置 links，则使用默认链接
+const linksConfig = navBarConfig.links || defaultLinks;
+
+let links: NavBarLink[] = linksConfig.map(
 	(item: NavBarLink | LinkPreset): NavBarLink => {
 		if (typeof item === "number") {
 			return LinkPresets[item];
@@ -32,6 +38,8 @@ let links: NavBarLink[] = navBarConfig.links.map(
         </a>
         <div class="hidden md:flex">
             {links.map((l) => {
+                // external = false 时不显示此链接
+                if (l.external === false) return null;
                 return <a aria-label={l.name} href={l.external ? l.url : url(l.url)} target={l.external ? "_blank" : null}
                           class="btn-plain scale-animation rounded-lg h-11 font-bold px-5 active:scale-95"
                 >

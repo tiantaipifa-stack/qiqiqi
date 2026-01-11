@@ -52,13 +52,13 @@ const className = Astro.props.class;
                 <div class="meta-icon">
                     <Icon name="material-symbols:visibility-outline-rounded" class="text-xl"></Icon>
                 </div>
-                <span class="text-50 text-sm font-medium" id={`page-views-${slug}`}>0 次</span>
+                <span class="text-50 text-sm font-medium" id={`page-views-${slug}`}>- 次</span>
             </div>
             <div class="flex items-center">
                 <div class="meta-icon">
                     <Icon name="material-symbols:person" class="text-xl"></Icon>
                 </div>
-                <span class="text-50 text-sm font-medium" id={`page-visitors-${slug}`}>0 人</span>
+                <span class="text-50 text-sm font-medium" id={`page-visitors-${slug}`}>- 人</span>
             </div>
         </>
     )}
@@ -97,6 +97,14 @@ const className = Astro.props.class;
             const viewsElement = document.getElementById(`page-views-${slug}`);
             const visitorsElement = document.getElementById(`page-visitors-${slug}`);
             
+            // 如果元素显示占位符 "-"，先设置为 0 以便动画
+            if (viewsElement && viewsElement.textContent.includes('-')) {
+                viewsElement.textContent = '0 次';
+            }
+            if (visitorsElement && visitorsElement.textContent.includes('-')) {
+                visitorsElement.textContent = '0 人';
+            }
+
             // 如果数据来自缓存，直接显示结果，跳过动画
             if (statsData._fromCache) {
                 if (viewsElement) viewsElement.innerHTML = `${pageViews} 次`;
@@ -107,22 +115,14 @@ const className = Astro.props.class;
             if (viewsElement) {
                 const currentViews = parseInt(viewsElement.textContent) || 0;
                 if (currentViews !== pageViews) {
-                    if (currentViews === 0) {
-                         animateValue(viewsElement, currentViews, pageViews, 1000, '次');
-                    } else {
-                         viewsElement.innerHTML = `${pageViews} 次`;
-                    }
+                    animateValue(viewsElement, currentViews, pageViews, 1000, '次');
                 }
             }
             
             if (visitorsElement) {
                 const currentVisits = parseInt(visitorsElement.textContent) || 0;
                 if (currentVisits !== visits) {
-                    if (currentVisits === 0) {
-                         animateValue(visitorsElement, currentVisits, visits, 1000, '人');
-                    } else {
-                         visitorsElement.innerHTML = `${visits} 人`;
-                    }
+                    animateValue(visitorsElement, currentVisits, visits, 1000, '人');
                 }
             }
         } catch (error) {

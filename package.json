@@ -14,7 +14,8 @@
     "clean": "node scripts/clean-unused-images.js",
     "del-space": "node scripts/del-space.js",
     "format": "biome format --write ./src",
-    "lint": "biome check --write ./src"
+    "lint": "biome check --write ./src",
+    "test": "pnpm type-check && pnpm build"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
